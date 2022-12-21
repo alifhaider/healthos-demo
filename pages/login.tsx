@@ -1,33 +1,33 @@
-import React from 'react';
-import jwt from 'jsonwebtoken';
-import Link from 'next/link';
+import React from 'react'
+import jwt from 'jsonwebtoken'
+import Link from 'next/link'
 
 const Login = () => {
-  const [phone, setPhone] = React.useState<number>();
-  const [password, setPassword] = React.useState<string>('');
+  const [phone, setPhone] = React.useState<number>()
+  const [password, setPassword] = React.useState<string>('')
 
-  const [message, setMessage] = React.useState<string>('');
+  const [message, setMessage] = React.useState<string>('')
 
   async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
+    e.preventDefault()
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ phone, password }),
-    }).then((t) => t.json());
+    }).then(t => t.json())
 
-    const token = res.token;
+    const token = res.token
 
     if (token) {
       const json = jwt.decode(token) as {
-        [key: string]: string;
-      };
-      console.log(json);
-      setMessage(`Welcome ${json.admin ? 'admin' : 'user'} `);
+        [key: string]: string
+      }
+      console.log(json)
+      setMessage(`Welcome ${json.admin ? 'admin' : 'user'} `)
     } else {
-      setMessage('Invalid Credentials');
+      setMessage('Invalid Credentials')
     }
   }
   return (
@@ -51,7 +51,7 @@ const Login = () => {
                 type="number"
                 auto-complete="phone"
                 value={phone}
-                onChange={(e) => setPhone(Number(e.target.value))}
+                onChange={e => setPhone(Number(e.target.value))}
                 required
                 className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="Phone Number"
@@ -66,7 +66,7 @@ const Login = () => {
                 name="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 auto-complete="current-password"
                 required
                 className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -93,7 +93,7 @@ const Login = () => {
         </Link>
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

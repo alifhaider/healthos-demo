@@ -1,12 +1,35 @@
 {
   "name": "healthos-demo",
   "version": "0.1.0",
+  "description": "HealthOS Demo",
+  "author": "Alif Haider",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write ."
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "embeddedLanguageFormatting": "auto",
+    "endOfLine": "lf",
+    "htmlWhitespaceSensitivity": "css",
+    "insertPragma": false,
+    "jsxSingleQuote": false,
+    "printWidth": 80,
+    "proseWrap": "always",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "semi": false,
+    "singleAttributePerLine": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "useTabs": false
   },
   "dependencies": {
     "@next/font": "13.0.7",
@@ -25,6 +48,7 @@
     "@types/jsonwebtoken": "^8.5.9",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
+    "prettier": "^2.8.1",
     "tailwindcss": "^3.2.4"
   }
 }
