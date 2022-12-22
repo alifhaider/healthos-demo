@@ -6,12 +6,12 @@ const LINKS = [
   },
   { products: 'Products' },
   { cart: 'Cart' },
-  { Customers: 'Customers' },
+  { login: 'Log In' },
 ]
 
 export default function Header() {
   return (
-    <header className="bg-white shadow">
+    <header className="shadow">
       <div className="max-w-7xl flex items-center justify-between mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="text-xl font-bold text-gray-900">
           HealthOS

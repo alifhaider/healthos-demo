@@ -94,7 +94,7 @@ const SignUp = () => {
       </div>
       <p className="mt-4 text-sm">
         Already have an ID? &nbsp;
-        <Link href="/signup">
+        <Link href="/login">
           <span className="text-blue-600 underline">Sign In!</span>
         </Link>
       </p>
