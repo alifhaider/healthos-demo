@@ -2,7 +2,7 @@ import React from 'react'
 import jwt from 'jsonwebtoken'
 import Link from 'next/link'
 
-const Login = () => {
+const SignUp = () => {
   const [phone, setPhone] = React.useState<string>('')
   const [password, setPassword] = React.useState<string>('')
 
@@ -39,7 +39,7 @@ const Login = () => {
       <div className="w-full max-w-md space-y-8 border-2 px-4 py-6 rounded-md">
         <div>
           <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
-            Sign in to your account
+            Sign Up to your account
           </h2>
         </div>
         <form className="mt-8 space-y-6">
@@ -59,6 +59,7 @@ const Login = () => {
                 required
                 className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="Phone Number"
+                aria-labelledby="phone-number"
               />
             </div>
             <div>
@@ -86,19 +87,19 @@ const Login = () => {
               onClick={handleSubmit}
               className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Sign in
+              Sign up
             </button>
           </div>
         </form>
       </div>
       <p className="mt-4 text-sm">
-        Don&apos;t Have User ID?{' '}
+        Already have an ID? &nbsp;
         <Link href="/signup">
-          <span className="text-blue-600 underline">Sign Up!</span>
+          <span className="text-blue-600 underline">Sign In!</span>
         </Link>
       </p>
     </div>
   )
 }
 
-export default Login
+export default SignUp
