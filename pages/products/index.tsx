@@ -1,16 +1,23 @@
 import Layout from '../../components/layout'
-import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { TData } from '../../utils/types'
+import React from 'react'
 
 export default function Products({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { products } = data
+  const [hideDiscountBadge, setHideDiscountBadge] =
+    React.useState<boolean>(false)
+
   return (
     <Layout>
+      <h1>Products</h1>
+      <button onClick={() => setHideDiscountBadge(!hideDiscountBadge)}>
+        Hide Badge
+      </button>
       <div className="grid grid-cols-4 gap-4 bg-white">
         {products.map((product: TData) => (
           <Link
@@ -41,13 +48,15 @@ export default function Products({
                 </div>
               </div>
               <p className="text-lime-700 text-sm">{product.description}</p>
-              <p className="absolute w-14 h-14 text-center -top-2 -right-2 bg-lime-300 p-2 rounded-full text-orange-500 leading-3">
-                <span className="font-semibold text-lg">
-                  {`${Math.floor(product.discountPercentage)}%`}
-                </span>
-                <br />
-                <span className="text-xs">Off</span>
-              </p>
+              {!hideDiscountBadge && (
+                <p className="absolute w-14 h-14 text-center -top-2 -right-2 bg-lime-300 p-2 rounded-full text-orange-500 leading-3">
+                  <span className="font-semibold text-lg">
+                    {`${Math.floor(product.discountPercentage)}%`}
+                  </span>
+                  <br />
+                  <span className="text-xs">Off</span>
+                </p>
+              )}
             </div>
           </Link>
         ))}
