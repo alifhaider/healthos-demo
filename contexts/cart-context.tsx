@@ -1,45 +1,51 @@
-import { createContext, useContext } from 'react'
 import * as React from 'react'
 import { TProduct } from '../utils/types'
 
-type Props = {
+type Action =
+  | { type: 'add'; payload: TProduct }
+  | { type: 'delete'; payload: TProduct }
+type Dispatch = (action: Action) => void
+type State = { products: TProduct[] }
+type CartProviderProps = {
   children: React.ReactNode
 }
 
-type CartState = {
-  products: TProduct[]
-  addProduct: (product: TProduct) => void
-  deleteProduct: (product: TProduct) => void
+const CartContext = React.createContext<
+  { state: State; dispatch: Dispatch } | undefined
+>(undefined)
+
+function CartReducer(state: State, action: Action) {
+  console.log(state, action)
+  switch (action.type) {
+    case 'add':
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+      }
+    case 'delete':
+      return {
+        ...state,
+        products: state.products.filter(item => item !== action.payload),
+      }
+    default:
+      return state
+  }
 }
 
-export const CartContext = createContext<CartState>({
-  products: [],
-  addProduct: () => {},
-  deleteProduct: () => {},
-})
-
-function addProduct(product: TProduct) {
-  console.log('addProduct', product)
-  // const cart = useContext(CartContext)
-  // const updatedCart = [...cart.products, product]
-  // setCart({ ...cart, products: updatedCart })
+function CartProvider({ children }: CartProviderProps) {
+  const [state, dispatch] = React.useReducer(CartReducer, {
+    products: [],
+  })
+  const value = { state, dispatch }
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
-function deleteProduct(product: TProduct) {
-  console.log('deleteProduct', product)
-  // const [cart, setCart] = useContext(CartContext)
-  // const updatedCart = cart.products.filter(item => item !== product)
-  // setCart({ ...cart, products: updatedCart })
+function useCart() {
+  const context = React.useContext(CartContext)
+  if (!context) {
+    throw new Error('useCart must be used within a CartProvider')
+  }
+  return context
 }
 
-const initialCartState: CartState = {
-  products: [],
-  addProduct,
-  deleteProduct,
-}
-
-export const CartProvider: React.FC<Props> = props => {
-  const { children } = props
-  const [cart, _] = React.useState(initialCartState)
-  return <CartContext.Provider value={cart}>{children}</CartContext.Provider>
-}
+export { CartProvider, useCart }

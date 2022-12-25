@@ -3,8 +3,11 @@ import Image from 'next/image'
 import React from 'react'
 import Layout from '../../components/layout'
 import { TProduct } from '../../utils/types'
+import { useCart } from '../../contexts/cart-context'
 
 export default function ProductPage({ product }: { product: TProduct }) {
+  const { dispatch } = useCart()
+
   const [selectedImage, setSelectedImage] = React.useState<string>(
     product.thumbnail,
   )
@@ -16,6 +19,11 @@ export default function ProductPage({ product }: { product: TProduct }) {
   }
 
   const allImages = [product.thumbnail, ...product.images]
+
+  function handleCartClick(product: TProduct) {
+    // dispatch({ type: 'add', payload: { ...product, quantity } })
+    dispatch({ type: 'add', payload: product })
+  }
 
   return (
     <Layout>
@@ -82,6 +90,7 @@ export default function ProductPage({ product }: { product: TProduct }) {
               </button>
             </div>
             <button
+              onClick={() => handleCartClick(product)}
               disabled={quantity < 1}
               className="flex-auto bg-orange-400 text-white font-semibold text-lg p-3 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"
             >

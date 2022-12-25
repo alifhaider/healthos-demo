@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { TProduct } from '../../utils/types'
 import * as React from 'react'
-import { useCart } from '../../contexts/cartcontext'
+import { useCart } from '../../contexts/cart-context'
 
 export default function Products({
   data,
@@ -15,21 +15,21 @@ export default function Products({
 
   const { dispatch } = useCart()
 
-  function handleCartClick(product: TProduct) {
+  function handleCartClick(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    product: TProduct,
+  ) {
+    e.preventDefault()
     dispatch({ type: 'add', payload: product })
   }
   return (
     <Layout>
-      <h1>Products</h1>
-      <button onClick={() => setHideDiscountBadge(!hideDiscountBadge)}>
-        Hide Badge
-      </button>
-      <div className="grid grid-cols-4 gap-4 bg-white">
+      <div className="grid grid-cols-4 gap-4 bg-white ">
         {products.map((product: TProduct) => (
           <Link
             href={`/products/${product.id}`}
             key={product.id}
-            className="bg-white border rounded-md cursor-pointer relative overflow-hidden hover:drop-shadow-md transition-all"
+            className="bg-white border rounded-md cursor-pointer h-full flex flex-col justify-between relative overflow-hidden hover:drop-shadow-md transition-all"
           >
             <Image
               width={300}
@@ -38,7 +38,7 @@ export default function Products({
               src={product.thumbnail}
               alt={product.title}
             />
-            <div className="p-2">
+            <div className="p-2 flex flex-grow flex-col justify-between ">
               <div className="flex justify-between items-center mb-4">
                 <h4 className="font-medium">{product.title}</h4>
                 <div className="leading-none">
@@ -54,7 +54,10 @@ export default function Products({
                 </div>
               </div>
               <p className="text-lime-700 text-sm">{product.description}</p>
-              <button onClick={() => handleCartClick(product)}>
+              <button
+                className="mt-4 bg-gray-400 text-white text-sm rounded-md px-4 py-2 hover:bg-orange-400 transition-all"
+                onClick={e => handleCartClick(e, product)}
+              >
                 Add to Cart
               </button>
               {!hideDiscountBadge && (
