@@ -73,22 +73,6 @@ export default function ProductPage({ product }: { product: TProduct }) {
             </p>
           </div>
           <div className="flex gap-4 w-full">
-            <div className=" flex items-center justify-between flex-auto font-bold text-lg bg-zinc-100 rounded-lg p-3 ">
-              <button
-                onClick={() => setQuantity(q => q - 1)}
-                disabled={quantity <= 1}
-                className="flex-auto disabled:cursor-not-allowed disabled:opacity-50 "
-              >
-                -
-              </button>
-              <p>{quantity}</p>
-              <button
-                onClick={() => setQuantity(q => q + 1)}
-                className="flex-auto"
-              >
-                +
-              </button>
-            </div>
             <button
               onClick={() => handleCartClick(product)}
               disabled={quantity < 1}

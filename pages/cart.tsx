@@ -39,7 +39,7 @@ export default function CartPage() {
                         onClick={() =>
                           dispatch({ type: 'delete', payload: product })
                         }
-                        className="bg-orange-200 p-2 rounded-lg hover:bg-orange-500 text-slate-700 hover:text-white transition-all duration-200"
+                        className="bg-orange-200 px-2 rounded-lg hover:bg-slate-700/20 text-slate-700 hover:text-orange-500 transition-all duration-200 font-semibold"
                       >
                         x
                       </button>
