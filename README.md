@@ -1,25 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with
-[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# HealthOS | ReactJS Jr Practical Test
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+```
+20 Dec 2022 Deadline: 30 Dec 2022
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
-
-HealthOS | ReactJS Jr Practical Test
-
-20 Dec 2022 Deadline: 30 Dec 2022
-
+```
 The task You have been hired as a developer for a project where You will write
 the ReactJS/NextJS app to develop an e-commerce admin web app.
+```
 
 There are a few views in the app
 
@@ -115,3 +103,19 @@ pages and do axios/fetch calls
   address You used in your application and when doing our earlier Quiz.
 
 Good luck! The HealthOS Development Team
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with
+[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the
+result.
