@@ -2,9 +2,9 @@ import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 import React from 'react'
 import Layout from '../../components/layout'
-import { TData } from '../../utils/types'
+import { TProduct } from '../../utils/types'
 
-export default function ProductPage({ product }: { product: TData }) {
+export default function ProductPage({ product }: { product: TProduct }) {
   const [selectedImage, setSelectedImage] = React.useState<string>(
     product.thumbnail,
   )
@@ -12,7 +12,6 @@ export default function ProductPage({ product }: { product: TData }) {
   const [quantity, setQuantity] = React.useState<number>(1)
 
   function handleImageClick(src: string) {
-    console.log(src)
     setSelectedImage(src)
   }
 

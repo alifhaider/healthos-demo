@@ -2,7 +2,7 @@ import Layout from '../../components/layout'
 import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { TData } from '../../utils/types'
+import { TProduct } from '../../utils/types'
 import React from 'react'
 
 export default function Products({
@@ -19,7 +19,7 @@ export default function Products({
         Hide Badge
       </button>
       <div className="grid grid-cols-4 gap-4 bg-white">
-        {products.map((product: TData) => (
+        {products.map((product: TProduct) => (
           <Link
             href={`/products/${product.id}`}
             key={product.id}

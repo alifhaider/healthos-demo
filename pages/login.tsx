@@ -9,10 +9,12 @@ const Login = () => {
 
   const [message, setMessage] = React.useState<string>('')
 
-  async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!phone || !password) return setMessage('Please fill all fields')
-    if (phone.length !== 11) return setMessage('Phone Number length must be 11')
+
+    //todo: fix phone number length
+    if (phone.length !== 4) return setMessage('Phone Number length must be 4')
 
     const res = await fetch('/api/login', {
       method: 'POST',
@@ -44,7 +46,7 @@ const Login = () => {
               Sign in to your account
             </h2>
           </div>
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" onSubmit={e => handleSubmit(e)}>
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="phone-number" className="sr-only">
@@ -85,7 +87,6 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                onClick={handleSubmit}
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Sign in

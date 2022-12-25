@@ -27,7 +27,6 @@ const SignUp = () => {
       const json = jwt.decode(token) as {
         [key: string]: string
       }
-      console.log(json)
       setMessage(`Welcome ${json.admin ? 'admin' : 'user'} `)
     } else {
       setMessage('Invalid Credentials')
