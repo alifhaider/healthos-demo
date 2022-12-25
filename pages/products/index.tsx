@@ -3,7 +3,8 @@ import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { TProduct } from '../../utils/types'
-import React from 'react'
+import * as React from 'react'
+import { useCart } from '../../contexts/cartcontext'
 
 export default function Products({
   data,
@@ -12,6 +13,11 @@ export default function Products({
   const [hideDiscountBadge, setHideDiscountBadge] =
     React.useState<boolean>(false)
 
+  const { dispatch } = useCart()
+
+  function handleCartClick(product: TProduct) {
+    dispatch({ type: 'add', payload: product })
+  }
   return (
     <Layout>
       <h1>Products</h1>
@@ -48,6 +54,9 @@ export default function Products({
                 </div>
               </div>
               <p className="text-lime-700 text-sm">{product.description}</p>
+              <button onClick={() => handleCartClick(product)}>
+                Add to Cart
+              </button>
               {!hideDiscountBadge && (
                 <p className="absolute w-14 h-14 text-center -top-2 -right-2 bg-lime-300 p-2 rounded-full text-orange-500 leading-3">
                   <span className="font-semibold text-lg">
