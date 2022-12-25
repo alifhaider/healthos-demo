@@ -15,7 +15,6 @@ const CartContext = React.createContext<
 >(undefined)
 
 function CartReducer(state: State, action: Action) {
-  console.log(state, action)
   switch (action.type) {
     case 'add':
       return {
