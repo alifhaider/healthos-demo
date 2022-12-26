@@ -75,12 +75,7 @@ export default function CartPage() {
                     {state.products.reduce(
                       (acc, curr) =>
                         acc +
-                        Number(
-                          getDiscountedPrice(
-                            curr.price,
-                            curr.discountPercentage,
-                          ),
-                        ),
+                        getDiscountedPrice(curr.price, curr.discountPercentage),
                       0,
                     )}
                   </strong>
@@ -89,6 +84,11 @@ export default function CartPage() {
             </tbody>
           </table>
           <p className="text-xs text-end">*Hover a while over REMOVE button</p>
+          <Link href="/checkout" className="flex justify-center">
+            <button className="px-8 py-4 bg-orange-400 text-white rounded-lg hover:bg-orange-500 transition-all">
+              Checkout
+            </button>
+          </Link>
         </div>
       )}
     </Layout>

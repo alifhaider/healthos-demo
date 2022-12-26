@@ -15,4 +15,5 @@ export type TProduct = {
 export type TUser = {
   phone: string
   password: string
+  admin?: boolean
 }

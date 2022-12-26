@@ -11,8 +11,6 @@ export default function Products({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { products } = data
-  const [hideDiscountBadge, setHideDiscountBadge] =
-    React.useState<boolean>(false)
 
   const { dispatch } = useCart()
 
@@ -25,7 +23,7 @@ export default function Products({
   }
   return (
     <Layout>
-      <div className="grid grid-cols-4 gap-4 bg-white ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white ">
         {products.map((product: TProduct) => (
           <Link
             href={`/products/${product.id}`}
@@ -61,15 +59,13 @@ export default function Products({
               >
                 Add to Cart
               </button>
-              {!hideDiscountBadge && (
-                <p className="absolute w-14 h-14 text-center -top-2 -right-2 bg-lime-300 p-2 rounded-full text-orange-500 leading-3">
-                  <span className="font-semibold text-lg">
-                    {`${Math.floor(product.discountPercentage)}%`}
-                  </span>
-                  <br />
-                  <span className="text-xs">Off</span>
-                </p>
-              )}
+              <p className="absolute w-14 h-14 text-center -top-2 -right-2 bg-lime-300 p-2 rounded-full text-orange-500 leading-3">
+                <span className="font-semibold text-lg">
+                  {`${Math.floor(product.discountPercentage)}%`}
+                </span>
+                <br />
+                <span className="text-xs">Off</span>
+              </p>
             </div>
           </Link>
         ))}

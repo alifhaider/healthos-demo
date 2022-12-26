@@ -2,9 +2,12 @@ import * as React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { AuthContext } from '../contexts/auth-context'
+import UserInfo from '../components/user-info'
+import { getCookie } from 'cookies-next'
+import axios from 'axios'
 
 export default function Home() {
-  const { isAuthenticated, logout, error } = React.useContext(AuthContext)
+  const { isAuthenticated, logout } = React.useContext(AuthContext)
 
   return (
     <>
@@ -15,6 +18,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="max-w-7xl mx-auto flex flex-col min-h-screen items-center justify-center">
+        <UserInfo />
         {isAuthenticated ? (
           <>
             <h1 className="text-bold text-7xl mb-16">Now you are logged in</h1>

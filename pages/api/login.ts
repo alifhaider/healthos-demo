@@ -15,7 +15,10 @@ export default async function handler(
   }
 
   const { phone, password } = req.body
-  const admin = phone === '1111' && password === 'admin'
+  let admin = false
+  if (phone === '1111' && password === 'admin') {
+    admin = true
+  }
   const jwtToken = await new jose.SignJWT({ phone, password, admin })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -31,5 +34,5 @@ export default async function handler(
   })
 
   res.setHeader('Set-Cookie', serialized)
-  return res.status(200).json({ message: 'Success' })
+  return res.status(200).json({ token: jwtToken })
 }

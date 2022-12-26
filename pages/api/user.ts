@@ -20,7 +20,7 @@ export default async function handler(
         jwt,
         new TextEncoder().encode(SECRET_KEY),
       )
-      return res.status(200).json({ data: user })
+      return res.status(200).json({ user })
     } catch (err) {
       return res.status(401).json({ message: err })
     }

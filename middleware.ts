@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import * as jose from 'jose'
 
-const SECRET_KEY = process.env.SECRET || ''
+const SECRET_KEY = process.env.SECRET
 
 export async function middleware(req: NextRequest) {
   const { cookies } = req
@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  if (url.includes('/dashboard')) {
+  if (url.includes('/dashboard' || '/checkout')) {
     if (!jwt) {
       return NextResponse.rewrite(new URL('/login', req.nextUrl.href))
     }

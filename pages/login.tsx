@@ -4,13 +4,14 @@ import Layout from '../components/layout'
 
 import { useRouter } from 'next/router'
 import { AuthContext } from '../contexts/auth-context'
+import * as cookie from 'cookie'
 
 const Login = () => {
   const [phone, setPhone] = React.useState<string>('')
   const [password, setPassword] = React.useState<string>('')
   const [message, setMessage] = React.useState<string>('')
 
-  const { login, logout } = useContext(AuthContext)
+  const { login } = useContext(AuthContext)
 
   const router = useRouter()
 
@@ -25,7 +26,7 @@ const Login = () => {
         router.push('/')
       })
       .catch(err => {
-        console.log(err)
+        throw new Error(err)
         setMessage('Invalid credentials')
       })
   }
