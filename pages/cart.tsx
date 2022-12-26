@@ -55,7 +55,10 @@ export default function CartPage() {
                         <button
                           title={`Remove ${title}`}
                           onClick={() =>
-                            dispatch({ type: 'delete', payload: product })
+                            dispatch({
+                              type: 'DELETE_PRODUCT',
+                              payload: product,
+                            })
                           }
                           className=" hover:bg-lime-400 transition-all  "
                         >
@@ -72,7 +75,7 @@ export default function CartPage() {
                 </td>
                 <td className="border border-slate-300  p-4 text-slate-500 text-center">
                   <strong>
-                    {state.products.reduce(
+                    {products.reduce(
                       (acc, curr) =>
                         acc +
                         getDiscountedPrice(curr.price, curr.discountPercentage),

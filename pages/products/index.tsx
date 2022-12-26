@@ -19,7 +19,7 @@ export default function Products({
     product: TProduct,
   ) {
     e.preventDefault()
-    dispatch({ type: 'add', payload: product })
+    dispatch({ type: 'ADD_PRODUCT', payload: product })
   }
   return (
     <Layout>
