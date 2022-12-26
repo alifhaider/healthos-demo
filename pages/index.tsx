@@ -48,6 +48,12 @@ export default function Home() {
                 Sign UP
               </Link>
             </div>
+            <button
+              onClick={() => logout()}
+              className="px-8 py-4 bg-orange-400 text-white rounded-lg"
+            >
+              Clear Cookie
+            </button>
           </>
         )}
         <pre
