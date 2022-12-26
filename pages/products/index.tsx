@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { TProduct } from '../../utils/types'
 import * as React from 'react'
 import { useCart } from '../../contexts/cart-context'
+import { getDiscountedPrice } from '../../utils/misc'
 
 export default function Products({
   data,
@@ -44,9 +45,9 @@ export default function Products({
                 <div className="leading-none">
                   <p className="text-red-500 font-medium text-md  ">
                     <span className="mr-1">$</span>
-                    {Math.floor(
-                      product.price -
-                        product.price * (product.discountPercentage / 100),
+                    {getDiscountedPrice(
+                      product.price,
+                      product.discountPercentage,
                     )}
                   </p>
                   <span className="mr-1">$</span>

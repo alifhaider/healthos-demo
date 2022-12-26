@@ -3,6 +3,7 @@ import Link from 'next/link'
 import * as React from 'react'
 import Layout from '../components/layout'
 import { useCart } from '../contexts/cart-context'
+import { getDiscountedPrice } from '../utils/misc'
 
 export default function CartPage() {
   const { state, dispatch } = useCart()
@@ -33,7 +34,7 @@ export default function CartPage() {
             </thead>
             <tbody>
               {products.map(product => {
-                const { title, price, thumbnail } = product
+                const { title, price, discountPercentage, thumbnail } = product
                 return (
                   <>
                     <tr>
@@ -48,16 +49,17 @@ export default function CartPage() {
                         <p>{title}</p>
                       </td>
                       <td className="border border-slate-300  p-4 text-slate-500 text-center">
-                        {price}
+                        {getDiscountedPrice(price, discountPercentage)}
                       </td>
                       <td className="border border-slate-300 p-4 text-center">
                         <button
+                          title={`Remove ${title}`}
                           onClick={() =>
                             dispatch({ type: 'delete', payload: product })
                           }
-                          className="bg-orange-200 px-2 rounded-lg hover:bg-slate-700/20 text-slate-700 hover:text-orange-500 transition-all duration-200 font-semibold"
+                          className=" hover:bg-lime-400 transition-all  "
                         >
-                          x
+                          ❌
                         </button>
                       </td>
                     </tr>
@@ -70,12 +72,23 @@ export default function CartPage() {
                 </td>
                 <td className="border border-slate-300  p-4 text-slate-500 text-center">
                   <strong>
-                    {state.products.reduce((acc, curr) => acc + curr.price, 0)}
+                    {state.products.reduce(
+                      (acc, curr) =>
+                        acc +
+                        Number(
+                          getDiscountedPrice(
+                            curr.price,
+                            curr.discountPercentage,
+                          ),
+                        ),
+                      0,
+                    )}
                   </strong>
                 </td>
               </tr>
             </tbody>
           </table>
+          <p className="text-xs text-end">*Hover a while over REMOVE button</p>
         </div>
       )}
     </Layout>

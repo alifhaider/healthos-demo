@@ -4,6 +4,7 @@ import React from 'react'
 import Layout from '../../components/layout'
 import { TProduct } from '../../utils/types'
 import { useCart } from '../../contexts/cart-context'
+import { getDiscountedPrice } from '../../utils/misc'
 
 export default function ProductPage({ product }: { product: TProduct }) {
   const { dispatch } = useCart()
@@ -11,8 +12,6 @@ export default function ProductPage({ product }: { product: TProduct }) {
   const [selectedImage, setSelectedImage] = React.useState<string>(
     product.thumbnail,
   )
-
-  const [quantity, setQuantity] = React.useState<number>(1)
 
   function handleImageClick(src: string) {
     setSelectedImage(src)
@@ -59,10 +58,7 @@ export default function ProductPage({ product }: { product: TProduct }) {
             <div className="flex items-center gap-5">
               <p className="text-4xl text-black font-bold">
                 <span className="mr-2">$</span>
-                {(
-                  product.price -
-                  product.price * (product.discountPercentage / 100)
-                ).toFixed(2)}
+                {getDiscountedPrice(product.price, product.discountPercentage)}
               </p>
               <p className="bg-orange-100 text-orange-500 text-sm font-semibold p-1 rounded-lg">
                 {product.discountPercentage}%
@@ -75,7 +71,6 @@ export default function ProductPage({ product }: { product: TProduct }) {
           <div className="flex gap-4 w-full">
             <button
               onClick={() => handleCartClick(product)}
-              disabled={quantity < 1}
               className="flex-auto bg-orange-400 text-white font-semibold text-lg p-3 rounded-lg disabled:cursor-not-allowed disabled:opacity-50"
             >
               Add to Cart
