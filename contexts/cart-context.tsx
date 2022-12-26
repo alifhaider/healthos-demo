@@ -1,9 +1,7 @@
 import * as React from 'react'
 import { TProduct } from '../utils/types'
 
-type Action =
-  | { type: 'add'; payload: TProduct }
-  | { type: 'delete'; payload: TProduct }
+type Action = { type: 'add' | 'delete'; payload: TProduct }
 type Dispatch = (action: Action) => void
 type State = { products: TProduct[] }
 type CartProviderProps = {

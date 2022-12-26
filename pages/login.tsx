@@ -1,40 +1,33 @@
-import React from 'react'
-import jwt from 'jsonwebtoken'
+import React, { useContext } from 'react'
 import Link from 'next/link'
 import Layout from '../components/layout'
+
+import { useRouter } from 'next/router'
+import { AuthContext } from '../contexts/auth-context'
 
 const Login = () => {
   const [phone, setPhone] = React.useState<string>('')
   const [password, setPassword] = React.useState<string>('')
-
   const [message, setMessage] = React.useState<string>('')
+
+  const { login, logout } = useContext(AuthContext)
+
+  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!phone || !password) return setMessage('Please fill all fields')
-
     //todo: fix phone number length
     if (phone.length !== 4) return setMessage('Phone Number length must be 4')
 
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ phone, password }),
-    }).then(t => t.json())
-
-    const token = res.token
-
-    if (token) {
-      const json = jwt.decode(token) as {
-        [key: string]: string
-      }
-      console.log(json)
-      setMessage(`Welcome ${json.admin ? 'admin' : 'user'} `)
-    } else {
-      setMessage('Invalid Credentials')
-    }
+    login(phone, password)
+      .then(() => {
+        router.push('/')
+      })
+      .catch(err => {
+        console.log(err)
+        setMessage('Invalid credentials')
+      })
   }
 
   return (
@@ -56,7 +49,7 @@ const Login = () => {
                   id="phone-number"
                   name="phone"
                   type="tel"
-                  pattern="[0-9]{11}"
+                  pattern="[0-9]{4}"
                   auto-complete="phone"
                   value={phone}
                   onChange={e => setPhone(e.target.value)}

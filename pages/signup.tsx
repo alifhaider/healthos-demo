@@ -1,38 +1,7 @@
 import React from 'react'
-import jwt from 'jsonwebtoken'
 import Link from 'next/link'
 
 const SignUp = () => {
-  const [phone, setPhone] = React.useState<string>('')
-  const [password, setPassword] = React.useState<string>('')
-
-  const [message, setMessage] = React.useState<string>('')
-
-  async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault()
-    if (!phone || !password) return setMessage('Please fill all fields')
-    if (phone.length !== 11) return setMessage('Phone Number length must be 11')
-
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ phone, password }),
-    }).then(t => t.json())
-
-    const token = res.token
-
-    if (token) {
-      const json = jwt.decode(token) as {
-        [key: string]: string
-      }
-      setMessage(`Welcome ${json.admin ? 'admin' : 'user'} `)
-    } else {
-      setMessage('Invalid Credentials')
-    }
-  }
-
   return (
     <div className="flex flex-col w-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8 border-2 px-4 py-6 rounded-md">
@@ -53,8 +22,6 @@ const SignUp = () => {
                 type="tel"
                 pattern="[0-9]{11}"
                 auto-complete="phone"
-                value={phone}
-                onChange={e => setPhone(e.target.value)}
                 required
                 className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 placeholder="Phone Number"
@@ -69,8 +36,6 @@ const SignUp = () => {
                 id="password"
                 name="password"
                 type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
                 auto-complete="current-password"
                 required
                 className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -79,15 +44,21 @@ const SignUp = () => {
             </div>
           </div>
 
-          {message && <li className="text-red-500">{message}</li>}
           <div>
             <button
               type="submit"
-              onClick={handleSubmit}
-              className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              disabled={true}
+              className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-not-allowed disabled:bg-gray-500"
             >
               Sign up
             </button>
+            <p className="text-center mt-2 text-sm text-red-400">
+              Just By using{' '}
+              <Link className="text-blue-500 text-underline" href="/login">
+                &apos;Login&apos;
+              </Link>{' '}
+              you can create an Account
+            </p>
           </div>
         </form>
       </div>

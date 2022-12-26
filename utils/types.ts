@@ -11,3 +11,8 @@ export type TProduct = {
   thumbnail: string
   images: string[]
 }
+
+export type TUser = {
+  phone: string
+  password: string
+}
