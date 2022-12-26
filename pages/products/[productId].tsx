@@ -21,7 +21,7 @@ export default function ProductPage({ product }: { product: TProduct }) {
 
   function handleCartClick(product: TProduct) {
     // dispatch({ type: 'add', payload: { ...product, quantity } })
-    dispatch({ type: 'add', payload: product })
+    dispatch({ type: 'ADD_PRODUCT', payload: product })
   }
 
   return (
