@@ -2,6 +2,14 @@ import Link from 'next/link'
 import React from 'react'
 import { AuthContext } from '../contexts/auth-context'
 import { useCart } from '../contexts/cart-context'
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuLink,
+  MenuList,
+} from '@reach/menu-button'
+import '@reach/menu-button/styles.css'
 const LINKS = [
   {
     dashboard: 'Dashboard',
@@ -11,7 +19,7 @@ const LINKS = [
 ]
 
 export default function Header() {
-  const { isAuthenticated, logout, error } = React.useContext(AuthContext)
+  const { isAuthenticated, logout, user, error } = React.useContext(AuthContext)
 
   const { state } = useCart()
   return (
@@ -22,6 +30,21 @@ export default function Header() {
         </Link>
         <nav>
           <ul className="flex items-center">
+            {user && user.admin && (
+              <Menu>
+                <MenuButton>
+                  Naviagate <span aria-hidden>▾</span>
+                </MenuButton>
+                <MenuList>
+                  <MenuItem onSelect={() => {}}>
+                    <Link href="/admin/customers">Customers</Link>
+                  </MenuItem>
+                  <MenuItem onSelect={() => {}}>
+                    <Link href="/admin/products">Products</Link>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            )}
             {LINKS.map(link => (
               <li key={Object.keys(link)[0]}>
                 <Link
@@ -38,6 +61,7 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+
             {isAuthenticated ? (
               <li>
                 <button

@@ -1,8 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
-import * as jose from 'jose'
 import * as cookie from 'cookie'
-import { GetServerSideProps } from 'next'
 import { TUser } from '../utils/types'
 
 interface AuthContextType {
@@ -44,7 +42,8 @@ function AuthContextProvider(
   const login = async (phone: string, password: string) => {
     try {
       const response = await axios.post('/api/login', { phone, password })
-      const token = response.data.user
+      const token = await response.data.token
+
       localStorage.setItem('siteToken', token)
       setIsAuthenticated(true)
     } catch (e) {
@@ -55,6 +54,7 @@ function AuthContextProvider(
   const logout = async () => {
     try {
       await axios.get('/api/logout')
+      localStorage.removeItem('siteToken')
       setIsAuthenticated(false)
     } catch (e) {
       setError('An error occurred while logging out')
@@ -62,8 +62,14 @@ function AuthContextProvider(
   }
 
   React.useEffect(() => {
+    const token = localStorage.getItem('siteToken')
+    if (token) {
+      setIsAuthenticated(true)
+    }
+  }, [])
+
+  React.useEffect(() => {
     if (!isAuthenticated) {
-      setIsAuthenticated(false)
       setUser(null)
     }
     if (isAuthenticated) {

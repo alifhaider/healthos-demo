@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import * as React from 'react'
-import Layout from '../components/layout'
+import { Layout } from '../components/layout'
 import { useCart } from '../contexts/cart-context'
 import { getDiscountedPrice } from '../utils/misc'
 

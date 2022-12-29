@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import Layout from '../components/layout'
+import { Layout } from '../components/layout'
 import { AuthContext } from '../contexts/auth-context'
 import { useCart } from '../contexts/cart-context'
 import { getDiscountedPrice } from '../utils/misc'

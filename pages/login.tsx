@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Link from 'next/link'
-import Layout from '../components/layout'
+import { Layout } from '../components/layout'
 
 import { useRouter } from 'next/router'
 import { AuthContext } from '../contexts/auth-context'
@@ -26,8 +26,8 @@ const Login = () => {
         router.push('/')
       })
       .catch(err => {
-        throw new Error(err)
         setMessage('Invalid credentials')
+        throw new Error(err)
       })
   }
 

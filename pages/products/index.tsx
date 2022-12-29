@@ -1,4 +1,4 @@
-import Layout from '../../components/layout'
+import { Layout } from '../../components/layout'
 import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'

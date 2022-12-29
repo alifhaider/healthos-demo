@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 import React from 'react'
-import Layout from '../../components/layout'
+import { Layout } from '../../components/layout'
 import { TProduct } from '../../utils/types'
 import { useCart } from '../../contexts/cart-context'
 import { getDiscountedPrice } from '../../utils/misc'
