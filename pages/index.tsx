@@ -3,8 +3,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { AuthContext } from '../contexts/auth-context'
 import UserInfo from '../components/user-info'
-import { getCookie } from 'cookies-next'
-import axios from 'axios'
 
 export default function Home() {
   const { isAuthenticated, logout } = React.useContext(AuthContext)
@@ -76,17 +74,6 @@ export default function Home() {
   `}
           </code>
         </pre>
-        <div className="p-5 bg-black text-slate-300 rounded-lg">
-          <h2 className="text-lg font-medium">Features: </h2>
-          <ul className="list-inside capitalize ml-4 leading-5">
-            <li>- Without logged in unable to visit dashboard</li>
-            <li className="flex gap-2">
-              - Navigation <pre className="bg-[#dfdfdf] text-black">login</pre>{' '}
-              Button Changes to{' '}
-              <pre className="bg-[#dfdfdf] text-black">logout</pre>
-            </li>
-          </ul>
-        </div>
       </main>
     </>
   )
