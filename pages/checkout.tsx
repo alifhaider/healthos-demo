@@ -7,15 +7,9 @@ import { useCart } from '../contexts/cart-context'
 import { getDiscountedPrice } from '../utils/misc'
 
 export default function CheckoutPage() {
-  const { isAuthenticated } = React.useContext(AuthContext)
-
   const { state, dispatch } = useCart()
   const { products } = state
   const router = useRouter()
-
-  if (!isAuthenticated) {
-    router.push('/login')
-  }
 
   function handlePayment() {
     setTimeout(() => {

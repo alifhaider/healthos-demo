@@ -1,15 +1,11 @@
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
 import { AuthContext } from '../contexts/auth-context'
 import { useCart } from '../contexts/cart-context'
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuLink,
-  MenuList,
-} from '@reach/menu-button'
-import '@reach/menu-button/styles.css'
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
 const LINKS = [
   {
     dashboard: 'Dashboard',
@@ -31,19 +27,23 @@ export default function Header() {
         <nav>
           <ul className="flex items-center">
             {user && user.admin && (
-              <Menu>
-                <MenuButton>
-                  Naviagate <span aria-hidden>▾</span>
-                </MenuButton>
-                <MenuList>
-                  <MenuItem onSelect={() => {}}>
-                    <Link href="/admin/customers">Customers</Link>
-                  </MenuItem>
-                  <MenuItem onSelect={() => {}}>
-                    <Link href="/admin/products">Products</Link>
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+              <PopupState variant="popover" popupId="demo-popup-menu">
+                {popupState => (
+                  <React.Fragment>
+                    <Button variant="outlined" {...bindTrigger(popupState)}>
+                      Navigate
+                    </Button>
+                    <Menu {...bindMenu(popupState)}>
+                      <MenuItem onClick={popupState.close}>
+                        <Link href="/admin/customers">Customers</Link>
+                      </MenuItem>
+                      <MenuItem onClick={popupState.close}>
+                        <Link href="/admin/products">Products</Link>
+                      </MenuItem>
+                    </Menu>
+                  </React.Fragment>
+                )}
+              </PopupState>
             )}
             {LINKS.map(link => (
               <li key={Object.keys(link)[0]}>
